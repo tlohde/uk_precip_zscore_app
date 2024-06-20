@@ -18,6 +18,7 @@ region_dict = {
     'northern ireland': 'NIP'
     }
 
+
 # get all the data for *all regions* and cahce it.
 @st.cache_data
 def get_data(region_dict):
@@ -86,7 +87,8 @@ def filter_and_roll(df, regions, years, baseline, window):
 df = get_data(region_dict)
 
 st.title('Precipitation anomalies')
-st.write('data from: [HadUKP - UK regional precipitation series](https://www.metoffice.gov.uk/hadobs/hadukp/)')
+st.write('data from: [HadUKP - UK regional precipitation series]\
+    (https://www.metoffice.gov.uk/hadobs/hadukp/)')
 
 with st.sidebar.form('pick'):
     regions = st.multiselect('Region(s)',
@@ -94,11 +96,14 @@ with st.sidebar.form('pick'):
                              default=['scotland', 'england & wales'])
 
     years = st.select_slider('Year range (to show)',
-                             options=list(range(df.year.min(), df.year.max()+1)),
+                             options=list(range(df.year.min(),
+                                                df.year.max()+1)),
                              value=(2021, 2024))
 
-    baseline = st.select_slider('Climate baseline period (should be ~30 years)',
-                                options=list(range(df.year.min(), df.year.max()+1)),
+    baseline = st.select_slider('Climate baseline period\
+        (should be ~30 years)',
+                                options=list(range(df.year.min(),
+                                                   df.year.max()+1)),
                                 value=(1981, 2010))
 
     window = st.slider('Rolling window (days)',
@@ -144,8 +149,10 @@ st.write(
     '- select a time period (days) over which to sum precipitaiton\n',
     '- press _Make plot_\n\n',
     '### navigating the plot\n',
-    '- if multiple regions have been selected, clicking on a single region in the legend will highlight that series\n',
-    '- zooming in only affects the date axis. panning left/right along the date axis is possible\n',
+    '- if multiple regions have been selected, clicking on a single\
+        region in the legend will highlight that series\n',
+    '- zooming in only affects the date axis. panning left/right along\
+        the date axis is possible\n',
     '### note\n',
     'if you display _all_ the data. any interactivity will be slow. so don\'t'
     )

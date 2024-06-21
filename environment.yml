@@ -1,0 +1,7 @@
+name: for_zscores
+channels:
+  - conda-forge
+dependencies:
+  - pandas
+  - streamlit
+  - altair-all

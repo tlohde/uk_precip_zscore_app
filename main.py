@@ -86,9 +86,14 @@ def filter_and_roll(df, regions, years, baseline, window):
 
 df = get_data(region_dict)
 
-st.title('Precipitation anomalies')
-st.write('data from: [HadUKP - UK regional precipitation series]\
-    (https://www.metoffice.gov.uk/hadobs/hadukp/)')
+st.markdown(
+    '''
+    # Precipitation anomalies
+
+    data from: [HadUKP - UK regional precipitation series\
+        ](https://www.metoffice.gov.uk/hadobs/hadukp/)
+    '''
+    )
 
 with st.sidebar.form('pick'):
     regions = st.multiselect('Region(s)',
@@ -141,33 +146,44 @@ with st.sidebar.form('pick'):
 if submitted:
     st.altair_chart(lines, use_container_width=True)
 
-st.write(
-    '## How to use\n',
-    '- select a region, or regions\n',
-    '- choose the time period of interest\n',
-    '- chose the baseline period (from which anomalies will be calculated)\n',
-    '- select a time period (days) over which to sum precipitaiton\n',
-    '- press _Make plot_\n\n',
-    '### navigating the plot\n',
-    '- if multiple regions have been selected, clicking on a single\
-        region in the legend will highlight that series\n',
-    '- zooming in only affects the date axis. panning left/right along\
-        the date axis is possible\n',
-    '### note\n',
-    'if you display _all_ the data. any interactivity will be slow. so don\'t'
+st.markdown(
+    '''
+    ## How to use
+
+    - select a region, or regions
+    - choose the time period of interest
+    - chose the baseline period (from which anomalies will be calculated)
+    - select a time period (days) over which to sum precipitaiton
+    - press _Make plot_
+
+    ### navigating the plot
+    - if multiple regions have been selected, clicking on a single\
+        region in the legend will highlight that series
+    - zooming in only affects the date axis. panning left/right along\
+        the date axis is possible
+
+    ### note
+
+    if you display _all_ the data. any interactivity will be slow. so don\'t.
+    '''
     )
 
-st.write(
-    '## Method\n',
-    '- a rolling sum of precipitation is calculated over the specified number\
-        of days (`rolling window`)\n',
-    '\t - this is a measure of how much rain has fallen in the last 7 days,\
-        or 30 days, or whatever...\n',
-    '- for observations during the `baseline period`, the mean ($\mu$) and\
-        standard deviation ($\sigma$) of\
-        the rolling sum are computed for each day of the year\n'
-    '- the z-score is computed by: $z = (p - \mu_d) / \sigma_d$\n',
-    '\t - where $p$ is the measured precipitation \n',
-    '\t - and $\mu_d$ and $\sigma_d$ are the mean and standard deviation for\
-        _that_ day of the year'
-)
+# flake8: noqa: W605 # ignore invlaid escape characters in katex strings
+st.markdown(
+    '''
+    ## Method
+
+    - a rolling sum of precipitation is calculated over the specified\
+        number of days (`rolling window`)
+    - this is a measure of how much rain has fallen in the last 7\
+        days, or 30 days, or whatever...
+    - for observations during the `baseline period`, the mean ($\mu$)\
+        and standard deviation ($\sigma$) of the rolling sum are\
+        computed for each day of the year
+    - the [z-score](https://en.wikipedia.org/wiki/Standard_score)\
+        is computed by: $z = (p - \mu_d) / \sigma_d$
+        - where $p$ is the measured precipitation
+        - and $\mu_d$ and $\sigma_d$ are the mean and standard\
+            deviation for _that_ day of the year
+    '''
+    )

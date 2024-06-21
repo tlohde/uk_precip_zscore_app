@@ -29,7 +29,7 @@ def get_data(region_dict):
         filestr = f'Had{region}_daily_totals.txt'
         _tmp = pd.read_csv(
             baseurl+filestr,
-            delim_whitespace=True,
+            sep='\s+',
             skiprows=[0, 1, 2],
             parse_dates=[0]).rename(columns={'Date': 'date',
                                              'Value': 'precip'})
@@ -94,6 +94,8 @@ st.markdown(
         ](https://www.metoffice.gov.uk/hadobs/hadukp/)
     '''
     )
+
+st.write('_updated on:_', df.date.max().strftime('%d/%m/%Y'))
 
 with st.sidebar.form('pick'):
     regions = st.multiselect('Region(s)',
